@@ -4,19 +4,19 @@ block content
     h2 Join the club
     div.login-box
         h3 Login
-        form
+        form(method="POST", action="")
             div.user-box
                 label(for="firstName") First Name
                 input(type='text' name='firstName' required='true' placeholder='Jane')
             div.user-box
                 label(for="lastName") Last Name
-                input(type='text' name='username' required='true' placeholder='Smith')
+                input(type='text' name='lastName' required='true' placeholder='Smith')
             div.user-box
                 label(for="username") E-mail
                 input(type='email' name='username' required='true' placeholder='abc@abc.com')
             div.user-box
                 label(for="password") Password
-                input(type='email' name='username' required='true' placeholder='Even 1234 is ok. This is just a fake app.')
+                input(type='password' name='password' required='true' placeholder='Even 1234 is ok. This is just a fake app.')
             button.btn(type='submit') Submit
       
     

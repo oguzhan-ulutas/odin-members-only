@@ -16,7 +16,7 @@ router.get('/login', userConroller.loginGet);
 router.post('/login', userConroller.loginPost);
 
 // Signup get page
-router.get('/signup', userConroller.singupGet);
+router.get('/signup', userConroller.signupGet);
 
 // Post req. for login page
 router.post('/signup', userConroller.signupPost);

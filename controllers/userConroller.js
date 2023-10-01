@@ -12,11 +12,23 @@ exports.loginPost = asyncHandler(async (req, res, next) => {
 });
 
 // Display sign up form on GET
-exports.singupGet = asyncHandler(async (req, res, next) => {
+exports.signupGet = asyncHandler(async (req, res, next) => {
   res.render('signupForm');
 });
 
 // Handle sign up on POST
 exports.signupPost = asyncHandler(async (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Sign up Post');
+  try {
+    const user = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      password: req.body.password,
+      membershipStatus: 'Member',
+    });
+    const result = await user.save();
+    res.redirect('/login');
+  } catch (err) {
+    next(err);
+  }
 });
