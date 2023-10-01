@@ -35,17 +35,17 @@ async function main() {
   mongoose.connection.close();
 }
 
-async function userCreate(index, firstName, lastName, userName, password, membershipStatus) {
+async function userCreate(index, firstName, lastName, username, password, membershipStatus) {
   const user = new User({
     firstName,
     lastName,
-    userName,
+    username,
     password,
     membershipStatus,
   });
   await user.save();
   users[index] = user;
-  console.log(`Added user: ${userName}`);
+  console.log(`Added user: ${username}`);
 }
 
 async function messageCreate(user, message, date) {

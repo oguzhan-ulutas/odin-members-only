@@ -4,14 +4,21 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const indexRouter = require('./routes/index');
+const catalogRouter = require('./routes/catalog'); // Import routes for "catalog" area of site
 
 const app = express();
 
 // Set up mongoose connection
 mongoose.set('strictQuery', false);
-const mongoDB = process.env.MONGODB_URI;
+
+const mongoUri =
+  'mongodb+srv://mkoulutas:W42wO9Fx0hwsKhjI@cluster0.a0j484t.mongodb.net/?retryWrites=true&w=majority';
+const mongoDB = process.env.MONGODB_URI || mongoUri;
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -22,6 +29,14 @@ async function main() {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// Adding req.user to global locals object (if it exist)
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,6 +44,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/catalog', catalogRouter); // Add catalog routes to middleware chain.
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -10,13 +10,15 @@ const router = express.Router();
 router.get('/', homeController.index);
 
 // Login get page
-router.get('/login', homeController.loginGet);
+router.get('/login', userConroller.loginGet);
 
 // Post req. for login page
-router.post('/login', homeController.loginPost);
+router.post('/login', userConroller.loginPost);
 
 // Signup get page
-router.get('/signup', homeController.singupGet);
+router.get('/signup', userConroller.singupGet);
 
 // Post req. for login page
-router.post('/signup', homeController.signupPost);
+router.post('/signup', userConroller.signupPost);
+
+module.exports = router;
