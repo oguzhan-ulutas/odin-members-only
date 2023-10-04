@@ -32,3 +32,13 @@ exports.signupPost = asyncHandler(async (req, res, next) => {
     next(err);
   }
 });
+
+// Handle user log out
+exports.logoutGet = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+};

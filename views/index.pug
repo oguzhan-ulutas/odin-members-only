@@ -1,48 +1,49 @@
 extends layout
 
 block content
-  if user.membershipStatus === "Member"
-    div(class="user-greet")
-      p Hello #{user.fullName} , welcome to #{title}.
-      a(href=user.url + "/logout") Log out
-      a(href=user.url + "/club-member") Become a club member to see authors and dates.
-      a(href=user.url + "/admin") Become an admin to delete messages.
-    div(class="messages")
-      each message in messages 
-        div(class="message")
-          p #{message.message}
-          p #[Strong Author: ] Become a clup member to see author.
-          p #[Strong Date: ] Become a clup member to see date.
-  else if user.membershipStatus === "Club Member"
-    div(class="user-greet")
-      p Hello #{user.fullName} , welcome to #{title}.
-      a(href=user.url + "/logout") Log out
-      a(href=user.url + "/admin") Become an admin to delete messages.
-    div(class="messages")
-      each message in messages 
-        div(class="message")
-          p #{message.message}
-          p #[Strong Author: ] #{message.user[0].fullName}
-          p #[Strong Date: ] #{message.date}
-  else if user.membershipStatus === "Admin"
-    div(class="user-greet")
-      p Hello #{user.fullName} , welcome to #{title}.
-      a(href=user.url + "/logout") Log out
-    div(class="messages")
-      each message in messages 
-        div(class="message")
-          p #{message.message}
-          p #[Strong Author: ] #{message.user[0].fullName}
-          p #[Strong Date: ] #{message.date}
-          form(method='POST' action='')
-            div.user-box
-              input(type='hidden',name='messageId', required='true', value=message._id )
-              button.btn.btn-primary(type='submit') Delete Message
+  if user
+    if user.membershipStatus === "Member"
+      div(class="user-greet")
+        p Hello #{user.fullName} , welcome to #{title}.
+        a(href=user.url + "/logout") Log out
+        a(href=user.url + "/club-member") Become a club member to see authors and dates.
+        a(href=user.url + "/admin") Become an admin to delete messages.
+      div(class="messages")
+        each message in messages 
+          div(class="message")
+            p #{message.message}
+            p #[Strong Author: ] Become a clup member to see author.
+            p #[Strong Date: ] Become a clup member to see date.
+    if user.membershipStatus === "Club Member"
+      div(class="user-greet")
+        p Hello #{user.fullName} , welcome to #{title}.
+        a(href=user.url + "/logout") Log out
+        a(href=user.url + "/admin") Become an admin to delete messages.
+      div(class="messages")
+        each message in messages 
+          div(class="message")
+            p #{message.message}
+            p #[Strong Author: ] #{message.user[0].fullName}
+            p #[Strong Date: ] #{message.date}
+    if user.membershipStatus === "Admin"
+      div(class="user-greet")
+        p Hello #{user.fullName} , welcome to #{title}.
+        a(href=user.url + "/logout") Log out
+      div(class="messages")
+        each message in messages 
+          div(class="message")
+            p #{message.message}
+            p #[Strong Author: ] #{message.user[0].fullName}
+            p #[Strong Date: ] #{message.date}
+            form(method='POST' action='')
+              div.user-box
+                input(type='hidden',name='messageId', required='true', value=message._id )
+                button.btn.btn-primary(type='submit') Delete Message
   else
-    div
+    div.user-greet
       p Hello visitor , welcome to #{title}.
-      a(href= "login") Log in
-      a(href= "singup") Become a member to write messages.
+      a(href= "/catalog/login") Log in
+      a(href= "/catalog/singup") Become a member to write messages.
     div(class="messages")
       each message in messages 
         div(class="message")

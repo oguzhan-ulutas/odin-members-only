@@ -21,4 +21,7 @@ router.get('/signup', userConroller.signupGet);
 // Post req. for login page
 router.post('/signup', userConroller.signupPost);
 
+// User log out
+router.get('/user/:id/logout', userConroller.logoutGet);
+
 module.exports = router;
