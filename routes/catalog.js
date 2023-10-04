@@ -27,4 +27,10 @@ router.get('/user/:id/logout', userController.logoutGet);
 // Add new message
 router.post('/message', messageController.addNewMessage);
 
+// Become a club member get
+router.get('/user/:id/club-member', userController.clubMemberGet);
+
+// Become a club member post
+router.post('/user/:id/club-member', userController.clubMemberPost);
+
 module.exports = router;

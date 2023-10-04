@@ -3,7 +3,7 @@ extends layout
 block content
   if user
     div.user-greet
-      p Hello #{user.fullName} , welcome to #{title}, 
+      p Hello #{user.fullName} , welcome to #{title}, your membership status is #{user.membershipStatus} 
         a(href=user.url + "/logout") Log out
     
     div.write-message
@@ -17,9 +17,8 @@ block content
             button.btn(type='submit') Submit
       
     if user.membershipStatus === "Member"
-      div(class="user-greet")
+      div.user-greet
         a(href=user.url + "/club-member") Become a club member to see authors and dates.
-        a(href=user.url + "/admin") Become an admin to delete messages.
       div(class="messages")
         each message in messages 
           div(class="message")
@@ -33,7 +32,7 @@ block content
         each message in messages 
           div(class="message")
             p #{message.message}
-            p #[Strong Author: ] #{message.user[0].fullName}
+            p #[Strong Author: ] #{message.user.fullName}
             p #[Strong Date: ] #{message.date}
     if user.membershipStatus === "Admin"
       div(class="messages")

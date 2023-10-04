@@ -1,0 +1,15 @@
+extends layout
+
+block content
+     h2 Write down the secret passcode to became a club member.
+     p Passcode is your first name. Yes, if you know your first name you can join the club, and see who and when write the message.
+     div.login-box
+        h3 Enter your first name
+        form(method="POST", action="")
+            div.user-box
+                label(for="firstName") First Name
+                input(type='text' name='firstName' required='true' placeholder='Henry...')
+            button.btn(type='submit') Submit
+
+     if error 
+        p #{error}

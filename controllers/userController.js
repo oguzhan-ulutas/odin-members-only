@@ -48,3 +48,20 @@ exports.logoutGet = (req, res, next) => {
     res.redirect('/');
   });
 };
+
+// Handle become a club member get
+exports.clubMemberGet = asyncHandler(async (req, res, next) => {
+  res.render('clubMemberForm', { user: req.user });
+});
+
+// Handle become a club member post
+exports.clubMemberPost = asyncHandler(async (req, res, next) => {
+  if (req.body.firstName === req.user.firstName) {
+    const user = await User.findById(req.user._id);
+    user.membershipStatus = 'Club Member';
+    await user.save();
+    res.redirect('/');
+  } else {
+    res.render('clubMemberForm', { user: req.user, error: 'Your name is wrong!!!' });
+  }
+});
