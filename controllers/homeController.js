@@ -12,9 +12,9 @@ exports.index = asyncHandler(async (req, res, next) => {
     User.find().exec(),
     Message.find().populate('user').exec(),
   ]);
-  console.log(users, messages);
   res.render('index', {
     title: 'Odin Members Only Clup',
     user: req.user,
+    messages,
   });
 });
