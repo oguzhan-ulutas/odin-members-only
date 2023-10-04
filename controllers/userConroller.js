@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
@@ -19,15 +20,20 @@ exports.signupGet = asyncHandler(async (req, res, next) => {
 // Handle sign up on POST
 exports.signupPost = asyncHandler(async (req, res, next) => {
   try {
-    const user = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      username: req.body.username,
-      password: req.body.password,
-      membershipStatus: 'Member',
+    bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+      if (err) {
+        return next(err);
+      }
+      const user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        password: hashedPassword,
+        membershipStatus: 'Member',
+      });
+      const result = await user.save();
+      res.redirect('/catalog/login');
     });
-    const result = await user.save();
-    res.redirect('/catalog/login');
   } catch (err) {
     next(err);
   }

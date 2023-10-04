@@ -42,8 +42,10 @@ block content
   else
     div.user-greet
       p Hello visitor , welcome to #{title}.
-      a(href= "/catalog/login") Log in
-      a(href= "/catalog/singup") Become a member to write messages.
+      p If you already a member, 
+        a(href= "/catalog/login") Log in 
+      p Become a member to write messages, 
+        a(href= "/catalog/signup") Sign up 
     div(class="messages")
       each message in messages 
         div(class="message")
