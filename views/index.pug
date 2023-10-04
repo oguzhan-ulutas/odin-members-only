@@ -2,10 +2,22 @@ extends layout
 
 block content
   if user
+    div.user-greet
+      p Hello #{user.fullName} , welcome to #{title}, 
+        a(href=user.url + "/logout") Log out
+    
+    div.write-message
+      div.login-box
+        h3 Write A Message
+        form(method="POST", action="/catalog/message")
+            div.user-box
+                label(for="message") Message
+                input(type='text' name='message' required='true' placeholder='It was a sunny day...')
+                input(type='hidden',name='userId', required='true', value=user._id )
+            button.btn(type='submit') Submit
+      
     if user.membershipStatus === "Member"
       div(class="user-greet")
-        p Hello #{user.fullName} , welcome to #{title}.
-        a(href=user.url + "/logout") Log out
         a(href=user.url + "/club-member") Become a club member to see authors and dates.
         a(href=user.url + "/admin") Become an admin to delete messages.
       div(class="messages")
@@ -16,8 +28,6 @@ block content
             p #[Strong Date: ] Become a clup member to see date.
     if user.membershipStatus === "Club Member"
       div(class="user-greet")
-        p Hello #{user.fullName} , welcome to #{title}.
-        a(href=user.url + "/logout") Log out
         a(href=user.url + "/admin") Become an admin to delete messages.
       div(class="messages")
         each message in messages 
@@ -26,9 +36,6 @@ block content
             p #[Strong Author: ] #{message.user[0].fullName}
             p #[Strong Date: ] #{message.date}
     if user.membershipStatus === "Admin"
-      div(class="user-greet")
-        p Hello #{user.fullName} , welcome to #{title}.
-        a(href=user.url + "/logout") Log out
       div(class="messages")
         each message in messages 
           div(class="message")

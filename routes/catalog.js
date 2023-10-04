@@ -1,8 +1,8 @@
 const express = require('express');
 
 const homeController = require('../controllers/homeController');
-const userConroller = require('../controllers/userConroller');
-const messageController = require('../controllers/messageConroller');
+const userController = require('../controllers/userController');
+const messageController = require('../controllers/messageController');
 
 const router = express.Router();
 
@@ -10,18 +10,21 @@ const router = express.Router();
 router.get('/', homeController.index);
 
 // Login get page
-router.get('/login', userConroller.loginGet);
+router.get('/login', userController.loginGet);
 
 // Post req. for login page
 // router.post('/login', userConroller.loginPost);
 
 // Signup get page
-router.get('/signup', userConroller.signupGet);
+router.get('/signup', userController.signupGet);
 
 // Post req. for login page
-router.post('/signup', userConroller.signupPost);
+router.post('/signup', userController.signupPost);
 
 // User log out
-router.get('/user/:id/logout', userConroller.logoutGet);
+router.get('/user/:id/logout', userController.logoutGet);
+
+// Add new message
+router.post('/message', messageController.addNewMessage);
 
 module.exports = router;

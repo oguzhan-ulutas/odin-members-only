@@ -24,6 +24,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 30px;
 }
 .login-box {
   width: 400px;
@@ -94,4 +95,35 @@ a {
   flex-direction: column;
   justify-content: space-between;
   gap: 5px;
+}
+
+/* .message codes taken from: https://codepen.io/t_afif/pen/WNzKJgZ , and modified.*/
+.message {
+  --b: 5px; /* border thickness */
+  --s: 30px; /* size of the dashes */
+  --c1: #215a6d;
+  --c2: #92c7a3;
+
+  width: 90%;
+  /* aspect-ratio: 1; */
+  position: relative;
+  padding: 10px;
+}
+.message::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: var(--b);
+  background: repeating-conic-gradient(var(--c1) 0 25%, var(--c2) 0 50%) 0 0 / var(--s) var(--s)
+    round;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.messages {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
 }
