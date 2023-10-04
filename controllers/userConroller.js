@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+
 const User = require('../models/user');
 
 // Display log in form on GET
@@ -7,9 +8,8 @@ exports.loginGet = asyncHandler(async (req, res, next) => {
 });
 
 // Handle log in on POST
-exports.loginPost = asyncHandler(async (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Login Post');
-});
+// exports.loginPost = asyncHandler(async (req, res, next) => {
+// });
 
 // Display sign up form on GET
 exports.signupGet = asyncHandler(async (req, res, next) => {
@@ -27,7 +27,7 @@ exports.signupPost = asyncHandler(async (req, res, next) => {
       membershipStatus: 'Member',
     });
     const result = await user.save();
-    res.redirect('/login');
+    res.redirect('/catalog/login');
   } catch (err) {
     next(err);
   }

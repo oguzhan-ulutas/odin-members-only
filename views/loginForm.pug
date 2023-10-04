@@ -1,4 +1,14 @@
 extends layout
 
 block content
-    
+     h2 Log in to write a message
+     div.login-box
+        h3 Login
+        form(method="POST", action="")
+            div.user-box
+                label(for="username") User Name (E-mail)
+                input(type='email' name='username' required='true' placeholder='abc@abc.com')
+            div.user-box
+                label(for="password") Password
+                input(type='password' name='password' required='true' placeholder='1234 etc.')
+            button.btn(type='submit') Submit

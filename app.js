@@ -10,6 +10,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog'); // Import routes for "catalog" area of site
+const User = require('./models/user');
 
 const app = express();
 
@@ -29,6 +30,37 @@ async function main() {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// Local strategy
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username });
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username' });
+      }
+      if (user.password !== password) {
+        return done(null, false, { message: 'Incorrect password' });
+      }
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  }),
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
 // Adding req.user to global locals object (if it exist)
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
@@ -42,6 +74,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.post(
+  '/catalog/login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/',
+  }),
+);
 
 app.use('/', indexRouter);
 app.use('/catalog', catalogRouter); // Add catalog routes to middleware chain.

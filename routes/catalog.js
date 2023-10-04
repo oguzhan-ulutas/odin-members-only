@@ -13,7 +13,7 @@ router.get('/', homeController.index);
 router.get('/login', userConroller.loginGet);
 
 // Post req. for login page
-router.post('/login', userConroller.loginPost);
+// router.post('/login', userConroller.loginPost);
 
 // Signup get page
 router.get('/signup', userConroller.signupGet);

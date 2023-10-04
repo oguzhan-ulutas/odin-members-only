@@ -15,5 +15,6 @@ exports.index = asyncHandler(async (req, res, next) => {
   console.log(users, messages);
   res.render('index', {
     title: 'Odin Members Only Clup',
+    user: req.user,
   });
 });
