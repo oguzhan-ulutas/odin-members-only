@@ -76,12 +76,11 @@ exports.adminGet = asyncHandler(async (req, res, next) => {
 
 // Handle become an admin get
 exports.adminPost = asyncHandler(async (req, res, next) => {
-  console.log(req.user);
   if (req.body.lastName === req.user.lastName) {
     const user = await User.findById(req.user._id);
     user.membershipStatus = 'Admin';
     await user.save();
-    res.redirect('/', { user: req.user });
+    res.redirect('/');
   } else {
     res.render('adminForm', {
       user: req.user,
