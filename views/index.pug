@@ -41,7 +41,7 @@ block content
             p #{message.message}
             p #[Strong Author: ] #{message.user.fullName}
             p #[Strong Date: ] #{message.date}
-            form(method='POST' action='')
+            form(method='POST' action= message.url)
               div.user-box
                 input(type='hidden',name='messageId', required='true', value=message._id )
                 button.btn.btn-primary(type='submit') Delete Message
