@@ -8,6 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
+const compression = require('compression');
 
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog'); // Import routes for "catalog" area of site
@@ -30,6 +31,8 @@ async function main() {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.use(compression()); // Compress all routes
 
 // Local strategy
 passport.use(
