@@ -19,6 +19,8 @@ a {
 }
 .footer {
   text-align: center;
+  font-size: 10px;
+  font-weight: 600;
 }
 .content {
   display: flex;
