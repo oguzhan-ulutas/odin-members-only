@@ -9,6 +9,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const compression = require('compression');
+const helmet = require('helmet');
 
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog'); // Import routes for "catalog" area of site
@@ -33,6 +34,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(compression()); // Compress all routes
+// Add helmet to the middleware chain.
+// Set CSP headers to allow our Bootstrap and Jquery to be served
+app.use(helmet());
 
 // Local strategy
 passport.use(
