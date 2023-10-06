@@ -33,4 +33,10 @@ router.get('/user/:id/club-member', userController.clubMemberGet);
 // Become a club member post
 router.post('/user/:id/club-member', userController.clubMemberPost);
 
+// Become an admin get
+router.get('/user/:id/admin', userController.adminGet);
+
+// Become an admin post
+router.post('/user/:id/admin', userController.adminPost);
+
 module.exports = router;

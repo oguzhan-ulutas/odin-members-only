@@ -62,6 +62,30 @@ exports.clubMemberPost = asyncHandler(async (req, res, next) => {
     await user.save();
     res.redirect('/');
   } else {
-    res.render('clubMemberForm', { user: req.user, error: 'Your name is wrong!!!' });
+    res.render('clubMemberForm', {
+      user: req.user,
+      error: 'Your name is wrong!!! You should learn your name to become a club member',
+    });
+  }
+});
+
+// Handle become an admin get
+exports.adminGet = asyncHandler(async (req, res, next) => {
+  res.render('adminForm', { user: req.user });
+});
+
+// Handle become an admin get
+exports.adminPost = asyncHandler(async (req, res, next) => {
+  console.log(req.user);
+  if (req.body.lastName === req.user.lastName) {
+    const user = await User.findById(req.user._id);
+    user.membershipStatus = 'Admin';
+    await user.save();
+    res.redirect('/', { user: req.user });
+  } else {
+    res.render('adminForm', {
+      user: req.user,
+      error: 'Your last name is wrong!!! You should learn your last name to became an admin',
+    });
   }
 });

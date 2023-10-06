@@ -63,11 +63,6 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-// Adding req.user to global locals object (if it exist)
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  next();
-});
 app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -84,6 +79,12 @@ app.post(
     failureRedirect: '/',
   }),
 );
+
+// Adding req.user to global locals object (if it exist)
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/catalog', catalogRouter); // Add catalog routes to middleware chain.

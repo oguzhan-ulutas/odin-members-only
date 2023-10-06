@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  if user
+  if locals.currentUser
     div.user-greet
-      p Hello #{user.fullName} , welcome to #{title}, your membership status is #{user.membershipStatus} 
-        a(href=user.url + "/logout") Log out
+      p Hello #{locals.currentUser.fullName} , welcome to #{title}, your membership status is #{locals.currentUser.membershipStatus} 
+        a(href=locals.currentUser.url + "/logout") Log out
     
     div.write-message
       div.login-box
@@ -16,30 +16,30 @@ block content
                 input(type='hidden',name='userId', required='true', value=user._id )
             button.btn(type='submit') Submit
       
-    if user.membershipStatus === "Member"
+    if locals.currentUser.membershipStatus === "Member"
       div.user-greet
-        a(href=user.url + "/club-member") Become a club member to see authors and dates.
+        a(href=locals.currentUser.url + "/club-member") Become a club member to see authors and dates.
       div(class="messages")
         each message in messages 
           div(class="message")
             p #{message.message}
             p #[Strong Author: ] Become a clup member to see author.
             p #[Strong Date: ] Become a clup member to see date.
-    if user.membershipStatus === "Club Member"
+    if locals.currentUser.membershipStatus === "Club Member"
       div(class="user-greet")
-        a(href=user.url + "/admin") Become an admin to delete messages.
+        a(href=locals.currentUser.url + "/admin") Become an admin to delete messages.
       div(class="messages")
         each message in messages 
           div(class="message")
             p #{message.message}
             p #[Strong Author: ] #{message.user.fullName}
             p #[Strong Date: ] #{message.date}
-    if user.membershipStatus === "Admin"
+    if locals.currentUser.membershipStatus === "Admin"
       div(class="messages")
         each message in messages 
           div(class="message")
             p #{message.message}
-            p #[Strong Author: ] #{message.user[0].fullName}
+            p #[Strong Author: ] #{message.user.fullName}
             p #[Strong Date: ] #{message.date}
             form(method='POST' action='')
               div.user-box

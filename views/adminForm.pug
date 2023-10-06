@@ -1,0 +1,16 @@
+extends layout
+
+block content
+     h2 Write down the secret passcode to became a club member.
+     p Passcode is your last name. Yes, if you know your last name you can become an admin, and see who and when write the message.
+     p #[Strong Important Note: ] Please do not delete all the messages after became an admin. New comers need to see some messages when they arrive. Right?
+     div.login-box
+        h3 Enter your last name
+        form(method="POST", action="")
+            div.user-box
+                label(for="lastName") Last Name
+                input(type='text' name='lastName' required='true' placeholder='Smith...')
+            button.btn(type='submit') Submit
+
+     if error 
+        p #{error}
