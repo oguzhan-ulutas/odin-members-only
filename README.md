@@ -7,7 +7,7 @@ An exclusive clubhouse where members can write anonymous posts. [The Odin Projec
 - Club members can see who write the message and date it had been written.
 - Admins cam delete the messages.
 
-[Live Preview](https://odin-members-only-production-90ff.up.railway.app/catalog)
+[Live Preview](https://odin-members-only-riwr.onrender.com/catalog)
 
 **What I learned with this project;**
 
